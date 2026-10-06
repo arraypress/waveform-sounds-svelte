@@ -83,6 +83,8 @@ describe('WaveformSounds against the real runtime', () => {
 		const { component, container } = render(WaveformSounds, { props: { sounds, onfilter } });
 		const api = component as unknown as { setFilter: (p: object) => void; getInstance: () => unknown };
 		await vi.waitFor(() => expect(api.getInstance()).not.toBeNull());
+		// The runtime builds on a microtask after construction; wait for it.
+		await (api.getInstance() as { ready: Promise<void> }).ready;
 
 		api.setFilter({ type: 'Bass' });
 		expect(visibleRows(host(container)).map((r) => r.dataset.url)).toEqual(['/bass.mp3']);
@@ -100,6 +102,8 @@ describe('WaveformSounds against the real runtime', () => {
 		});
 		const api = component as unknown as { play: (t: unknown) => void; pause: () => void; getInstance: () => unknown };
 		await vi.waitFor(() => expect(api.getInstance()).not.toBeNull());
+		// The runtime builds on a microtask after construction; wait for it.
+		await (api.getInstance() as { ready: Promise<void> }).ready;
 
 		api.play('sound-2'); // ids default to sound-<1-based n>
 		expect(StubPlayer.instances).toHaveLength(1);
@@ -114,6 +118,8 @@ describe('WaveformSounds against the real runtime', () => {
 		});
 		const api = component as unknown as { play: (t: unknown) => void; getInstance: () => unknown };
 		await vi.waitFor(() => expect(api.getInstance()).not.toBeNull());
+		// The runtime builds on a microtask after construction; wait for it.
+		await (api.getInstance() as { ready: Promise<void> }).ready;
 		const el = host(container);
 		api.play(0);
 
@@ -127,6 +133,7 @@ describe('WaveformSounds against the real runtime', () => {
 		const el = host(container);
 		await vi.waitFor(() => expect(Core.getInstance(el)).not.toBeNull());
 		const first = Core.getInstance(el)!;
+		await first.ready;
 
 		(component as unknown as { set: (k: string, v: unknown) => void }).set('sounds', sounds.slice(0, 1));
 		flushSync();
@@ -137,6 +144,7 @@ describe('WaveformSounds against the real runtime', () => {
 		});
 
 		const second = Core.getInstance(el)!;
+		await second.ready;
 		expect(second.sounds.map((s) => s.url)).toEqual(['/kick.mp3']);
 		expect(el.querySelectorAll('[data-ws-index]')).toHaveLength(1);
 		expect([...Core.instances.keys()].filter((k) => k === el)).toHaveLength(1);
