@@ -87,6 +87,7 @@
 		loop,
 		autoAdvance,
 		arrowAudition,
+		urlState,
 		// ── Engine (the one WaveformPlayer) ──────────────────────────────
 		playerOptions,
 		playerClass,
@@ -242,6 +243,7 @@
 		set('loop', loop);
 		set('autoAdvance', autoAdvance);
 		set('arrowAudition', arrowAudition);
+		set('urlState', urlState);
 
 		set('playerOptions', playerOptions);
 		set('playerClass', playerClass);

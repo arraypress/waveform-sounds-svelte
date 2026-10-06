@@ -55,6 +55,14 @@ Every `WaveformSoundsOptions` key from the core is a prop (`player`, `search`,
 menu, `filters={['type']}` keeps only the type filter, `showCount={false}`
 hides the count.
 
+`urlState` keeps the filters and sort in the address (`?q=…&type=…&sort=…`,
+via `replaceState`) so a filtered list can be shared; a string prefixes the
+parameter names for several lists on a page. The server renders the
+unfiltered list and the runtime applies the address after hydration.
+
+Per sound, `download` adds a download link to that row (a plain
+`<a download>`; gating is up to your site).
+
 `idPrefix` prefixes the dropdowns' element ids. It defaults to the host's
 `id`, else a per-component id from `$props.id()` that matches between server
 and hydration — so two lists of the same sounds on one page never share ids.

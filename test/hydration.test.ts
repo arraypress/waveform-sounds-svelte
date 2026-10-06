@@ -35,7 +35,7 @@ beforeAll(async () => {
 afterAll(() => rmSync(serverBuild, { force: true }));
 
 const sounds = [
-	{ url: '/kick.mp3', title: 'Kick', type: 'One-shots' },
+	{ url: '/kick.mp3', title: 'Kick', type: 'One-shots', download: '/free/kick.wav' },
 	{ url: '/loop.mp3', title: 'Loop', type: 'Drum loops', bpm: 128 },
 ];
 
@@ -60,6 +60,9 @@ describe('hydration', () => {
 		expect(el.querySelector('[data-ws-list]')).toBe(serverList);
 		expect(el.querySelector('[data-ws-index="1"]')).toBe(serverRow);
 		expect(Core.getInstance(el)!.sounds.map((s) => s.url)).toEqual(['/kick.mp3', '/loop.mp3']);
+		// Read back from the server's row markup (data-download).
+		expect(Core.getInstance(el)!.sounds[0].download).toBe('/free/kick.wav');
+		expect(el.querySelector('a.ws-download')!.getAttribute('href')).toBe('/free/kick.wav');
 		expect(el.classList.contains('pack')).toBe(true);
 		// The client computed the same markup — incl. the `$props.id()`
 		// dropdown ids — or Svelte warns `hydration_html_changed` (dev).

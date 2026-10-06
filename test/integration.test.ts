@@ -119,6 +119,21 @@ describe('WaveformSounds against the real runtime', () => {
 		expect(el.querySelector('[data-ws-menu="sort"] [data-ws-menu-value]')!.textContent).toBe('Name');
 	});
 
+	it('urlState reads the filters from the address and writes them back', async () => {
+		history.replaceState(null, '', '/pack?q=bass');
+		const { component, container } = render(WaveformSounds, { props: { sounds, urlState: true } });
+		const api = component as unknown as { setSort: (by: string) => void; getInstance: () => unknown };
+		await vi.waitFor(() => expect(api.getInstance()).not.toBeNull());
+		await (api.getInstance() as { ready: Promise<void> }).ready;
+
+		expect(visibleRows(host(container)).map((r) => r.dataset.url)).toEqual(['/bass.mp3']);
+		api.setSort('title');
+		// The address is written debounced (replaceState).
+		await vi.waitFor(() => expect(new URL(location.href).searchParams.get('sort')).toBe('title'));
+		expect(new URL(location.href).searchParams.get('q')).toBe('bass');
+		history.replaceState(null, '', '/');
+	});
+
 	it('plays through the engine, firing onplay / onpause with the sound', async () => {
 		const onplay = vi.fn();
 		const onpause = vi.fn();

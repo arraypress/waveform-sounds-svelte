@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - First release: `<WaveformSounds>`, a Svelte 5 (runes) component for
   `@arraypress/waveform-sounds` 0.1.0. Requires Svelte **5.20.0+**
   (peer `^5.20.0`): the first release with `$props.id()` (5.19.10 has none).
+- `urlState` (filters + sort kept in the address) is forwarded like every
+  other option and rebuilds the list when it changes. Per-sound `download`
+  links render in the server markup and are read back by the runtime.
 - `idPrefix` for the dropdowns' element ids, defaulting to the host's `id`,
   else `$props.id()` — unique per instance and identical on the server and
   during hydration, so two lists of the same sounds never share ids (the

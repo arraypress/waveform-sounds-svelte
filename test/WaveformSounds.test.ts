@@ -86,7 +86,7 @@ import Harness from './fixtures/Harness.svelte';
 type HarnessApi = { set: (k: string, v: unknown) => void; boundInstance: () => unknown };
 
 const soundsA = [
-	{ url: '/kick.mp3', title: 'Kick', type: 'One-shots' },
+	{ url: '/kick.mp3', title: 'Kick', type: 'One-shots', download: '/free/kick.wav' },
 	{ url: '/loop.mp3', title: 'Loop', type: 'Drum loops', bpm: 128, key: 'F minor' },
 ];
 
@@ -106,6 +106,9 @@ describe('WaveformSounds (Svelte)', () => {
 		const rows = el.querySelectorAll('[data-ws-list] > [data-ws-index]');
 		expect(rows).toHaveLength(2);
 		expect(rows[1].getAttribute('data-url')).toBe('/loop.mp3');
+		// A per-sound `download` renders that row's link; rows without carry none.
+		expect(rows[0].querySelector('a.ws-download[download]')!.getAttribute('href')).toBe('/free/kick.wav');
+		expect(rows[1].querySelector('a.ws-download')).toBeNull();
 		expect(el.querySelector('[data-ws-search]')).not.toBeNull();
 		expect(el.querySelector('[data-ws-engine]')).not.toBeNull();
 	});
