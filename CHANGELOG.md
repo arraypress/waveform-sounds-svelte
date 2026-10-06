@@ -15,7 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - First release: `<WaveformSounds>`, a Svelte 5 (runes) component for
   `@arraypress/waveform-sounds` 0.1.0.
 - Every `WaveformSoundsOptions` key is a typed prop, derived from the
-  core's `index.d.ts`, and forwarded through an explicit allowlist. A
+  core's `index.d.ts`, and forwarded through an explicit allowlist —
+  including `sorts`, `showCount` and `menuSearch`, which also shape the
+  server-rendered markup (the type / key / sort dropdowns and the count). A
   forwarding-drift test fails when the core declares an option the wrapper
   neither forwards nor lists in `NOT_FORWARDED`.
 - Server rendering: with `sounds`, the host carries the core's own markup

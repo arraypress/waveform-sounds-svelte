@@ -129,6 +129,33 @@ describe('WaveformSounds (Svelte)', () => {
 		expect(el.querySelector('[data-ws-count]')!.textContent).toBe('2 geluiden');
 	});
 
+	it('renders the sort / key dropdowns from sorts, menuSearch and showCount', () => {
+		const { container } = render(WaveformSounds, {
+			props: {
+				sounds: [...soundsA, { url: '/pad.mp3', title: 'Pad', key: 'C major' }],
+				sorts: ['title', 'bpm'],
+				showCount: false,
+				menuSearch: 0,
+			},
+		});
+		const el = host(container);
+		const sort = el.querySelector('[data-ws-menu="sort"]')!;
+		// The first usable order is the starting one, shown on the button.
+		expect(sort.querySelector('[data-ws-menu-value]')!.textContent).toBe('Name');
+		expect(Array.from(sort.querySelectorAll('[role=option]')).map((o) => o.getAttribute('data-value'))).toEqual([
+			'title',
+			'bpm',
+		]);
+		// menuSearch 0: the key dropdown gets its search field from the first option.
+		expect(el.querySelector('[data-ws-menu="key"] [data-ws-menu-search]')).not.toBeNull();
+		expect(el.querySelector('[data-ws-count]')).toBeNull();
+	});
+
+	it('sorts=[] renders no sort menu', () => {
+		const { container } = render(WaveformSounds, { props: { sounds: soundsA, sorts: [] } });
+		expect(host(container).querySelector('[data-ws-menu="sort"]')).toBeNull();
+	});
+
 	it('constructs the core over the host, adopting the rendered list', async () => {
 		const { container } = render(WaveformSounds, { props: { sounds: soundsA } });
 		await firstInstance();

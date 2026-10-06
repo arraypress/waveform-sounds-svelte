@@ -94,6 +94,18 @@ describe('WaveformSounds against the real runtime', () => {
 		document.removeEventListener('waveformsounds:filter', onEvent);
 	});
 
+	it('setSort through the exported API reorders rows and updates the sort dropdown', async () => {
+		const { component, container } = render(WaveformSounds, { props: { sounds } });
+		const api = component as unknown as { setSort: (by: string) => void; getInstance: () => unknown };
+		await vi.waitFor(() => expect(api.getInstance()).not.toBeNull());
+		await (api.getInstance() as { ready: Promise<void> }).ready;
+		const el = host(container);
+
+		api.setSort('title');
+		expect(visibleRows(el).map((r) => r.dataset.title)).toEqual(['Bass', 'Kick', 'Loop']);
+		expect(el.querySelector('[data-ws-menu="sort"] [data-ws-menu-value]')!.textContent).toBe('Name');
+	});
+
 	it('plays through the engine, firing onplay / onpause with the sound', async () => {
 		const onplay = vi.fn();
 		const onpause = vi.fn();

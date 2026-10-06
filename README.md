@@ -47,14 +47,30 @@ in the browser.
 ## Props
 
 Every `WaveformSoundsOptions` key from the core is a prop (`player`, `search`,
-`filters`, `sortable`, `loopToggle`, `pageSize`, `columns`, `strings`,
-`waveformStyle`, `loop`, `autoAdvance`, `playerOptions`, `playerClass`, …).
+`filters`, `sorts`, `showCount`, `menuSearch`, `loopToggle`, `pageSize`,
+`columns`, `strings`, `waveformStyle`, `loop`, `autoAdvance`, `playerOptions`,
+`playerClass`, …). Every control is optional: `sorts={[]}` drops the sort
+menu, `filters={['type']}` keeps only the type filter, `showCount={false}`
+hides the count.
 Changing one rebuilds the list. `class`, `id`, `style` and other attributes
 land on the host `<div>`.
 
 Callbacks are lowercase props and never rebuild: `onready`, `onplay`,
 `onpause`, `onend`, `onfilter`, `onerror`. The core also dispatches bubbling
 `waveformsounds:*` DOM events from the host.
+
+## Theming
+
+Colour-agnostic out of the box: everything derives from `currentColor`, so
+it fits light and dark pages without configuration. Theme it with the core's
+custom properties on the host (`class` / `style` land there). One worth
+setting when you server-render: `--ws-surface`, the page background behind
+the list — the runtime detects it, but the server-rendered first paint can
+only use what you set.
+
+```svelte
+<WaveformSounds {sounds} style="--ws-surface: #0b0b0c" />
+```
 
 ## Imperative API
 

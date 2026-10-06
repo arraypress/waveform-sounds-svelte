@@ -68,7 +68,9 @@
 		player,
 		search,
 		filters,
-		sortable,
+		sorts,
+		showCount,
+		menuSearch,
 		loopToggle,
 		maxTypeChips,
 		pageSize,
@@ -124,7 +126,9 @@
 				player,
 				search,
 				filters,
-				sortable,
+				sorts,
+				showCount,
+				menuSearch,
 				loopToggle,
 				maxTypeChips,
 				pageSize,
@@ -194,6 +198,7 @@
 			if (value !== undefined && value !== null) opts[key] = value;
 		};
 		deep(filters);
+		deep(sorts);
 		deep(columns);
 		deep(strings);
 		deep(playerOptions);
@@ -204,7 +209,9 @@
 		set('player', player);
 		set('search', search);
 		set('filters', filters);
-		set('sortable', sortable);
+		set('sorts', sorts);
+		set('showCount', showCount);
+		set('menuSearch', menuSearch);
 		set('loopToggle', loopToggle);
 		set('maxTypeChips', maxTypeChips);
 		set('pageSize', pageSize);

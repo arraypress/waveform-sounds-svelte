@@ -35,6 +35,7 @@ const NOT_FORWARDED: Record<string, string> = {};
 const SAMPLES: Record<string, [unknown, unknown]> = {
 	sounds: [[{ url: '/a.mp3', title: 'A' }], [{ url: '/b.mp3', title: 'B' }]],
 	filters: [['type'], ['key']],
+	sorts: [['title', 'default'], ['default']],
 	columns: [['bpm'], ['key']],
 	strings: [{ all: 'Alle' }, { all: 'Tout' }],
 	playerOptions: [{ height: 40 }, { height: 50 }],
