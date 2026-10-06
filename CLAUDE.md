@@ -11,12 +11,7 @@ over it; the runtime adopts that markup.
 - `npm run build` — svelte-package to `dist/`. `prepublishOnly` runs it. `dist/` is gitignored.
 
 ## ⚠ Local-dev dependency — switch before publishing
-The core isn't on npm yet, so the devDependency is
-`"@arraypress/waveform-sounds": "file:../waveform-sounds"` (npm symlinks it).
-**After the core's 0.1.0 is published, change it to `"^0.1.0"` and
-`npm install`** (package-lock too). The `server.fs.allow` entry in
-`vitest.config.ts` exists only for the symlink and can go then. The peer
-range is already `^0.1.0`.
+The core is an ordinary `^0.1.0` devDependency installed from npm. (Until 0.1.0 was published on 2026-10-07 it was a `file:../waveform-sounds` symlink, which needed a Vite `server.fs.allow` exception; both are gone.)
 
 ## The rule that matters: an undestructured prop vanishes
 `src/lib/WaveformSounds.svelte`. A new core option needs:
