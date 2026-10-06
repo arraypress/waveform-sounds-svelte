@@ -74,7 +74,7 @@
   },
   "devDependencies": {
     "@arraypress/waveform-player": "^1.29.1",
-    "@arraypress/waveform-sounds": "file:../waveform-sounds",
+    "@arraypress/waveform-sounds": "^0.1.0",
     "@sveltejs/package": "^2.5.8",
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
     "@testing-library/jest-dom": "^7.0.0",
