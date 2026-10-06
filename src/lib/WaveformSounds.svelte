@@ -33,7 +33,7 @@
       import '@arraypress/waveform-sounds/styles.css';
 
   The list plays every sound through one `WaveformPlayer`, constructed from
-  `window.WaveformPlayer` on first play, so register the player core once:
+  `window.WaveformPlayer` once the list is ready, so register the player core once:
 
       import '@arraypress/waveform-player'; // registers window.WaveformPlayer
 

@@ -33,7 +33,7 @@ import '@arraypress/waveform-sounds/styles.css';
 ```svelte
 <script lang="ts">
   import { WaveformSounds } from '@arraypress/waveform-sounds-svelte';
-  import sounds from '$lib/sounds.json'; // npx @arraypress/waveform-gen ./previews/*.mp3 --manifest …
+  import sounds from '$lib/sounds.json'; // npx @arraypress/waveform-gen ./static/previews/*.mp3 --manifest src/lib/sounds.json --base-url /previews/
 </script>
 
 <WaveformSounds sounds={sounds.sounds} />
