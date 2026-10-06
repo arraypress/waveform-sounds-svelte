@@ -16,6 +16,8 @@ A searchable, filterable sound list — typed props for every option, server-ren
 
 ## Install
 
+Requires **Svelte 5.20+** (the component uses `$props.id()`).
+
 ```bash
 npm install @arraypress/waveform-sounds-svelte @arraypress/waveform-sounds @arraypress/waveform-player svelte
 ```
@@ -52,6 +54,10 @@ Every `WaveformSoundsOptions` key from the core is a prop (`player`, `search`,
 `playerClass`, …). Every control is optional: `sorts={[]}` drops the sort
 menu, `filters={['type']}` keeps only the type filter, `showCount={false}`
 hides the count.
+
+`idPrefix` prefixes the dropdowns' element ids. It defaults to the host's
+`id`, else a per-component id from `$props.id()` that matches between server
+and hydration — so two lists of the same sounds on one page never share ids.
 Changing one rebuilds the list. `class`, `id`, `style` and other attributes
 land on the host `<div>`.
 

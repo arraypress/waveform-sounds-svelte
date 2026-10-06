@@ -13,7 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - First release: `<WaveformSounds>`, a Svelte 5 (runes) component for
-  `@arraypress/waveform-sounds` 0.1.0.
+  `@arraypress/waveform-sounds` 0.1.0. Requires Svelte **5.20.0+**
+  (peer `^5.20.0`): the first release with `$props.id()` (5.19.10 has none).
+- `idPrefix` for the dropdowns' element ids, defaulting to the host's `id`,
+  else `$props.id()` — unique per instance and identical on the server and
+  during hydration, so two lists of the same sounds never share ids (the
+  core's own fallback is a hash of the sounds).
 - Every `WaveformSoundsOptions` key is a typed prop, derived from the
   core's `index.d.ts`, and forwarded through an explicit allowlist —
   including `sorts`, `showCount` and `menuSearch`, which also shape the

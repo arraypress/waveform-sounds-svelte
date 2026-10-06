@@ -33,7 +33,9 @@ describe('peer dependency floors', () => {
 		expect(atLeast(pkg.peerDependencies['@arraypress/waveform-player'], '1.24.5')).toBe(true);
 	});
 
-	it('requires Svelte 5 (runes)', () => {
-		expect(atLeast(pkg.peerDependencies.svelte, '5.0.0')).toBe(true);
+	it('requires Svelte >= 5.20.0 ($props.id(), the SSR-stable id prefix)', () => {
+		// Verified against the published tarballs: 5.19.10 (the last 5.19)
+		// has no `$props.id`; 5.20.0 introduces it.
+		expect(atLeast(pkg.peerDependencies.svelte, '5.20.0')).toBe(true);
 	});
 });

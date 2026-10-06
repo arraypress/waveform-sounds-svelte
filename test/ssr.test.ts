@@ -32,7 +32,8 @@ describe('server rendering', () => {
 		expect(body).toMatch(/<div[^>]*class="waveform-sounds waveform-sounds--strip wfs-host pack"/);
 		expect(body).toContain('id="p1"');
 		expect(body).not.toContain('data-waveform-sounds');
-		expect(body).toContain(renderSounds(sounds, { player: 'strip', pageSize: 1 }));
+		// The host `id` is the dropdowns' id prefix (no `idPrefix` prop).
+		expect(body).toContain(renderSounds(sounds, { player: 'strip', pageSize: 1, idPrefix: 'p1' }));
 		// Escaped by the core renderer, not double-escaped by Svelte.
 		expect(body).toContain('Loop &lt;04&gt;');
 	});

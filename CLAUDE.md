@@ -43,6 +43,15 @@ options whose `__key__` sentinel would break `renderSounds` go in its `SAMPLES`.
   (same as the playlist wrapper) so the runtime's `waveform-sounds*` classes
   survive a class-only change.
 - Callbacks + `class` are not read in the mount effect, so they never rebuild.
+- `idPrefix` defaults to host `id`, else `$props.id()` (SSR/hydration-stable,
+  unique per instance). That is why the svelte peer floor is `^5.20.0` —
+  verified against the tarballs: 5.19.10 has no `$props.id`, 5.20.0 does.
+
+## Test gotcha
+In the MOCKED suites, render lists one at a time (await the first construct):
+two concurrent dynamic imports of the vi.mock'ed core can hand the second
+component the REAL module. Not a wrapper bug — `integration.test.ts` mounts two
+lists concurrently against the real core.
 
 ## Conventions
 - Types derive from the core's hand-written `index.d.ts`; never re-declare them.

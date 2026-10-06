@@ -76,6 +76,19 @@ describe('WaveformSounds against the real runtime', () => {
 		expect(el.dataset.wsInitialized).toBe('true');
 	});
 
+	it('two lists of the same sounds on one page each mount, with distinct ids', async () => {
+		const a = render(WaveformSounds, { props: { sounds } });
+		const b = render(WaveformSounds, { props: { sounds } });
+		const [elA, elB] = [host(a.container), host(b.container)];
+		await vi.waitFor(() => expect(Core.getInstance(elA) && Core.getInstance(elB)).toBeTruthy());
+		await Core.getInstance(elA)!.ready;
+		await Core.getInstance(elB)!.ready;
+
+		const ids = (el: HTMLElement) => Array.from(el.querySelectorAll('[id]')).map((n) => n.id);
+		expect(ids(elA).length).toBeGreaterThan(0);
+		expect(ids(elA).filter((id) => ids(elB).includes(id))).toEqual([]);
+	});
+
 	it('filters through the exported API, reporting through onfilter and a bubbling event', async () => {
 		const onfilter = vi.fn();
 		const onEvent = vi.fn();

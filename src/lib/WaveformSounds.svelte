@@ -76,6 +76,7 @@
 		pageSize,
 		columns,
 		strings,
+		idPrefix,
 		// ── Row waveform ─────────────────────────────────────────────────
 		waveformStyle,
 		waveformColor,
@@ -102,6 +103,18 @@
 		class: className = '',
 		...rest
 	}: Props = $props();
+
+	/*
+	 * Prefix for the dropdowns' element ids (`aria-controls`, listbox and
+	 * option ids). The core's own default is a hash of the sounds, so two
+	 * lists of the same sounds on a page would collide; `$props.id()` is
+	 * unique per component instance AND identical on the server and during
+	 * hydration (Svelte >= 5.20.0, hence the peer floor). Precedence: the
+	 * `idPrefix` prop, then the host's `id` (the core's client default),
+	 * then the component id.
+	 */
+	const uid = $props.id();
+	const prefix = $derived(idPrefix ?? (typeof rest.id === 'string' && rest.id ? rest.id : uid));
 
 	let container: HTMLDivElement;
 	/* Non-reactive handle: the methods below use it, and the mount effect
@@ -134,6 +147,7 @@
 				pageSize,
 				columns,
 				strings,
+				idPrefix: prefix,
 			});
 		} catch (err) {
 			console.error('[WaveformSoundsSvelte] Failed to render sounds:', err);
@@ -217,6 +231,7 @@
 		set('pageSize', pageSize);
 		set('columns', columns);
 		set('strings', strings);
+		set('idPrefix', prefix);
 
 		set('waveformStyle', waveformStyle);
 		set('waveformColor', waveformColor);

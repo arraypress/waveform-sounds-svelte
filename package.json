@@ -62,7 +62,7 @@
   "peerDependencies": {
     "@arraypress/waveform-player": "^1.24.5",
     "@arraypress/waveform-sounds": "^0.1.0",
-    "svelte": "^5.0.0"
+    "svelte": "^5.20.0"
   },
   "scripts": {
     "build": "svelte-package",

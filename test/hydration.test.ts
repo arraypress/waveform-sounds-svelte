@@ -50,6 +50,7 @@ describe('hydration', () => {
 		const serverRow = target.querySelector('[data-ws-index="1"]');
 		expect(serverList).not.toBeNull();
 
+		const warn = vi.spyOn(console, 'warn');
 		const onready = vi.fn();
 		const app = hydrate(WaveformSounds, { target, props: { ...props, onready } });
 		await vi.waitFor(() => expect(onready).toHaveBeenCalledTimes(1));
@@ -60,6 +61,11 @@ describe('hydration', () => {
 		expect(el.querySelector('[data-ws-index="1"]')).toBe(serverRow);
 		expect(Core.getInstance(el)!.sounds.map((s) => s.url)).toEqual(['/kick.mp3', '/loop.mp3']);
 		expect(el.classList.contains('pack')).toBe(true);
+		// The client computed the same markup — incl. the `$props.id()`
+		// dropdown ids — or Svelte warns `hydration_html_changed` (dev).
+		expect(el.querySelector('[data-ws-menu="sort"] [role=listbox]')!.id).toMatch(/-sort-list$/);
+		expect(warn.mock.calls.flat().join(' ')).not.toMatch(/hydration/i);
+		warn.mockRestore();
 
 		unmount(app);
 		expect(Core.getInstance(el)).toBeNull();

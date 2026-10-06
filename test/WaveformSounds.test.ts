@@ -151,6 +151,28 @@ describe('WaveformSounds (Svelte)', () => {
 		expect(el.querySelector('[data-ws-count]')).toBeNull();
 	});
 
+	it('gives each list its own dropdown ids, even for the same sounds', () => {
+		const sortList = (c: HTMLElement) => host(c).querySelector('[data-ws-menu="sort"] [role=listbox]')!.id;
+		const a = render(WaveformSounds, { props: { sounds: soundsA } });
+		const b = render(WaveformSounds, { props: { sounds: soundsA } });
+		expect(sortList(a.container)).not.toBe(sortList(b.container));
+	});
+
+	it('the idPrefix prop, else the host id, prefixes the dropdown ids', async () => {
+		// One at a time: vitest's module mock can miss a second concurrent
+		// dynamic import of the same module and hand it the real one.
+		const a = render(WaveformSounds, { props: { sounds: soundsA, idPrefix: 'pack', id: 'ignored' } });
+		await vi.waitFor(() => expect(instances).toHaveLength(1));
+		const b = render(WaveformSounds, { props: { sounds: soundsA, id: 'drums' } });
+		await vi.waitFor(() => expect(instances).toHaveLength(2));
+
+		expect(host(a.container).querySelector('[data-ws-menu="sort"] [role=listbox]')!.id).toBe('pack-sort-list');
+		expect(host(b.container).querySelector('[data-ws-menu="sort"] [role=listbox]')!.id).toBe('drums-sort-list');
+		// Forwarded too, so a manifest list rendered by the runtime matches.
+		expect(instances[0].opts.idPrefix).toBe('pack');
+		expect(instances[1].opts.idPrefix).toBe('drums');
+	});
+
 	it('sorts=[] renders no sort menu', () => {
 		const { container } = render(WaveformSounds, { props: { sounds: soundsA, sorts: [] } });
 		expect(host(container).querySelector('[data-ws-menu="sort"]')).toBeNull();
