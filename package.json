@@ -1,0 +1,90 @@
+{
+  "name": "@arraypress/waveform-sounds-svelte",
+  "version": "0.1.0",
+  "description": "Svelte 5 component wrapper for @arraypress/waveform-sounds — a searchable, filterable sound list with typed props for every option, lifecycle callback props, an exported imperative API, and server-rendered markup the runtime adopts.",
+  "type": "module",
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "svelte",
+    "svelte5",
+    "svelte-component",
+    "audio",
+    "waveform",
+    "samples",
+    "sample-pack",
+    "sound-browser",
+    "preview",
+    "presets",
+    "player",
+    "filter",
+    "search",
+    "audio-player"
+  ],
+  "author": "ArrayPress",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arraypress/waveform-sounds-svelte.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arraypress/waveform-sounds-svelte/issues"
+  },
+  "homepage": "https://waveformplayer.com",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/arraypress"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "peerDependencies": {
+    "@arraypress/waveform-player": "^1.24.5",
+    "@arraypress/waveform-sounds": "^0.1.0",
+    "svelte": "^5.0.0"
+  },
+  "scripts": {
+    "build": "svelte-package",
+    "dev": "svelte-package --watch",
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@arraypress/waveform-player": "^1.29.1",
+    "@arraypress/waveform-sounds": "file:../waveform-sounds",
+    "@sveltejs/package": "^2.5.8",
+    "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/svelte": "^5.4.2",
+    "@types/node": "^22.20.5",
+    "jsdom": "^30.0.1",
+    "svelte": "^5.56.8",
+    "svelte-check": "^4.7.5",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
+  }
+}

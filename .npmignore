@@ -1,0 +1,14 @@
+node_modules/
+test/
+examples/
+src/
+coverage/
+*.log
+.DS_Store
+.svelte-kit/
+.vitest-cache/
+tsconfig.json
+svelte.config.js
+vitest.config.ts
+.gitignore
+.idea/
