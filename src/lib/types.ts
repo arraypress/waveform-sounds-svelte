@@ -38,6 +38,7 @@ export type {
 	SoundsSort,
 	SoundsLayout,
 	SoundsFilterControl,
+	SoundsLoopFilter,
 	SoundsColumn,
 	WaveformSoundsStrings,
 	WaveformSoundsOptions,
