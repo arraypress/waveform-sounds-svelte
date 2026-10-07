@@ -1,6 +1,6 @@
 {
   "name": "@arraypress/waveform-sounds-svelte",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Svelte 5 component wrapper for @arraypress/waveform-sounds — a searchable, filterable sound list with typed props for every option, lifecycle callback props, an exported imperative API, and server-rendered markup the runtime adopts.",
   "type": "module",
   "svelte": "./dist/index.js",
@@ -61,7 +61,7 @@
   ],
   "peerDependencies": {
     "@arraypress/waveform-player": "^1.24.5",
-    "@arraypress/waveform-sounds": "^0.2.0",
+    "@arraypress/waveform-sounds": "^0.2.0 || ^0.3.0",
     "svelte": "^5.20.0"
   },
   "scripts": {
